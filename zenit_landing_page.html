@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenit CRM - Crece tus ventas, automatiza y gestiona clientes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zenit: {
+                            red: '#C61A22',
+                            orange: '#F58232',
+                            lightOrange: '#FFB870',
+                            bg: '#F5EBE1',
+                            dark: '#1C1C1C',
+                            gray: '#4A4A4A'
+                        }
+                    },
+                    fontFamily: {
+                        spartan: ['"League Spartan"', 'sans-serif'],
+                        montserrat: ['"Montserrat"', 'sans-serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: League Spartan & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #F5EBE1; 
+            color: #1C1C1C; 
+        }
+        h1, h2, h3, h4, h5, h6 { 
+            font-family: 'League Spartan', sans-serif; 
+            letter-spacing: -0.02em;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #C61A22 0%, #F58232 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Botón Estándar Naranja */
+        .btn-zenit {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F5943F;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            min-height: 48px;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+            white-space: nowrap;
+        }
+        .btn-zenit:hover {
+            background-color: #E38330;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(245, 148, 63, 0.35);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Form styling */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #D1D5DB;
+            background-color: white;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #C61A22;
+            box-shadow: 0 0 0 3px rgba(198, 26, 34, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased text-zenit-dark font-montserrat">
+
+    <!-- Header / Navigation -->
+    <header class="fixed w-full z-50 transition-all duration-300 shadow-sm" id="navbar">
+        <!-- Top Bar Negra -->
+        <div class="bg-black py-2">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-start items-center text-xs md:text-sm text-white font-montserrat">
+                <span>
+                    Contacto con ventas: <a href="tel:5563887541" class="hover:text-[#F58232] transition-colors font-medium">55 6388 7541</a>
+                </span>
+                <span class="mx-3 text-gray-400">|</span>
+                <span>
+                    Escríbenos: <a href="mailto:hola@zenit.mx" class="hover:text-[#F58232] transition-colors font-medium">hola@zenit.mx</a>
+                </span>
+            </div>
+        </div>
+
+        <!-- Main Navbar Blanca -->
+        <nav class="bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                        <img src="CRM-z-crm.svg" alt="Zenit CRM Logo" class="h-8 md:h-10 w-auto" onerror="this.src='https://placehold.co/200x50/FFF/C61A22?text=ZENIT+CRM'">
+                    </div>
+                    
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex space-x-6 lg:space-x-8 items-center font-montserrat">
+                        <a href="#integraciones" class="text-gray-800 font-semibold text-sm hover:text-[#C62828] transition-colors">Integraciones</a>
+                        <a href="#dashboards" class="text-gray-800 font-semibold text-sm hover:text-[#C62828] transition-colors">Dashboards</a>
+                        <a href="#wms" class="text-gray-800 font-semibold text-sm hover:text-[#C62828] transition-colors">WMS Zenit</a>
+                        <a href="#precios" class="text-gray-800 font-semibold text-sm hover:text-[#C62828] transition-colors">Precios</a>
+                        
+                        <button onclick="openModal()" class="btn-zenit text-sm py-2 px-6 min-h-[42px]">
+                            Prueba gratuita
+                        </button>
+                    </div>
+
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-btn" class="text-gray-800 hover:text-[#C62828] focus:outline-none">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Panel -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg border-t border-gray-100 absolute w-full font-montserrat">
+                <div class="px-4 pt-2 pb-6 space-y-1">
+                    <a href="#integraciones" class="block px-3 py-2 rounded-md text-base font-semibold text-gray-800 hover:bg-gray-50 hover:text-[#C62828]">Integraciones</a>
+                    <a href="#dashboards" class="block px-3 py-2 rounded-md text-base font-semibold text-gray-800 hover:bg-gray-50 hover:text-[#C62828]">Dashboards</a>
+                    <a href="#wms" class="block px-3 py-2 rounded-md text-base font-semibold text-gray-800 hover:bg-gray-50 hover:text-[#C62828]">WMS Zenit</a>
+                    <a href="#precios" class="block px-3 py-2 rounded-md text-base font-semibold text-gray-800 hover:bg-gray-50 hover:text-[#C62828]">Precios</a>
+                    <div class="mt-4 px-3">
+                        <button onclick="openModal()" class="btn-zenit w-full">
+                            Prueba gratuita
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+<!-- Hero Section -->
+<section id="inicio" class="pt-32 pb-16 md:pt-40 md:pb-24 px-4 overflow-hidden relative">
+    <div class="max-w-7xl mx-auto text-center relative z-10">
+        
+        <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight mb-6 max-w-5xl mx-auto font-spartan">
+            Convierte más <span class="text-zenit-red">oportunidades</span><br class="hidden sm:inline">
+            en <span class="text-zenit-red">clientes reales</span>
+        </h1>
+        
+        <p class="mt-6 text-lg md:text-xl text-zenit-gray max-w-3xl mx-auto font-medium font-montserrat leading-relaxed">
+            Optimiza tu proceso comercial con un CRM que te guía paso a paso dentro del 
+            embudo de ventas, asegurando que ninguna oportunidad se pierda.
+        </p>
+        
+        <div class="mt-10">
+            <button onclick="openModal()" class="btn-zenit min-w-[200px] text-lg">
+                <span>Contactar</span> 
+            </button>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="mt-16 relative w-full max-w-6xl mx-auto">
+            <img src="CRM-ilustracion-web.png" alt="CRM Interface Illustration Web" class="w-full h-auto drop-shadow-2xl rounded-2xl hidden lg:block" onerror="this.src='https://placehold.co/1200x600/FFF/333?text=Hero+Illustration+Web'">
+            <img src="CRM-ilustracion-tab.png" alt="CRM Interface Illustration Tablet" class="w-full h-auto drop-shadow-2xl rounded-2xl hidden md:block lg:hidden" onerror="this.src='https://placehold.co/800x600/FFF/333?text=Hero+Illustration+Tablet'">
+            <img src="CRM-ilustracion-cel.png" alt="CRM Interface Illustration Mobile" class="w-full h-auto drop-shadow-xl rounded-2xl block md:hidden" onerror="this.src='https://placehold.co/600x800/FFF/333?text=Hero+Illustration+Mobile'">
+        </div>
+    </div>
+</section>
+<!-- Barra Independiente de Integraciones -->
+<section class="py-12 md:py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap md:flex-nowrap justify-center items-center gap-8 sm:gap-12 md:gap-16 lg:gap-20">
+            <!-- Gmail -->
+            <img src="CRM-mail.png" alt="Gmail" class="h-14 sm:h-16 md:h-20 w-auto object-contain transition-transform duration-300 hover:scale-105">
+            
+            <!-- WhatsApp -->
+            <img src="CRM-whats.png" alt="WhatsApp" class="h-14 sm:h-16 md:h-20 w-auto object-contain transition-transform duration-300 hover:scale-105">
+            
+            <!-- Zenit WMS -->
+            <img src="CRM-z-wms.svg" alt="Zenit WMS" class="h-9 sm:h-11 md:h-12 w-auto object-contain transition-transform duration-300 hover:scale-105">
+            
+            <!-- Brevo / Blu -->
+            <img src="CRM-blu.png" alt="Brevo" class="h-14 sm:h-16 md:h-20 w-auto object-contain transition-transform duration-300 hover:scale-105">
+            
+            <!-- Google Drive -->
+            <img src="CRM-drive.png" alt="Google Drive" class="h-14 sm:h-16 md:h-20 w-auto object-contain transition-transform duration-300 hover:scale-105">
+        </div>
+    </div>
+</section>
+<!-- Feature Section 1 -->
+<section id="crm" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="text-center relative max-w-4xl mx-auto mb-16 flex justify-center items-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight font-spartan">
+                Un CRM que realmente <span class="text-[#C62828]">impulsa<br>resultados</span>
+            </h2>
+            <img src="CRM-suricata-1.png" alt="Suricata" class="absolute -right-4 md:right-10 top-0 h-20 md:h-28 hidden sm:block object-contain">
+        </div>
+
+        <!-- Content & Video -->
+        <div class="flex flex-col lg:flex-row items-center gap-12 max-w-6xl mx-auto">
+            
+            <!-- Left Side: Text and Bullets -->
+            <div class="w-full lg:w-1/2">
+                <p class="text-gray-800 text-lg mb-8 font-medium font-montserrat">
+                    Solución integral que conecta, automatiza y potencia cada etapa comercial. El CRM centraliza todo tu proceso comercial en un solo lugar y aseguras que cada oportunidad avance hasta el cierre:
+                </p>
+                
+                <ul class="space-y-4 mb-10 text-gray-800 font-semibold font-montserrat">
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-5 h-5 mt-1 flex-shrink-0">
+                        <span>Seguimiento efectivo a tus ventas.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-5 h-5 mt-1 flex-shrink-0">
+                        <span>Organiza actividades dentro del funnel.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-5 h-5 mt-1 flex-shrink-0">
+                        <span>Aumenta la tasa de conversión.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-5 h-5 mt-1 flex-shrink-0">
+                        <span>Mejora la productividad de tu equipo.</span>
+                    </li>
+                </ul>
+                
+                <button onclick="openModal()" class="btn-zenit min-w-[200px] w-full sm:w-auto">
+                    Contactar
+                </button>
+            </div>
+
+            <!-- Right Side: Video Placeholder -->
+            <div class="w-full lg:w-1/2">
+                <div class="w-full aspect-video bg-[#595959] rounded-xl flex items-center justify-center shadow-lg cursor-pointer hover:bg-[#4d4d4d] transition-colors relative">
+                    <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center shadow-md">
+                        <div class="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-[#C62828] border-b-[12px] border-b-transparent ml-2"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- Feature Section 2: Carrusel Todo en una sola plataforma -->
+    <section id="integraciones" class="py-20 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header Centrado -->
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 text-gray-900 leading-tight font-spartan">
+                    Todo en una sola <br>
+                    <span class="text-[#C62828]">plataforma :</span>
+                </h2>
+                <p class="text-base md:text-lg text-gray-800 font-medium font-montserrat">
+                    Integración total para una gestión sin esfuerzo. Conecta todas las áreas de tu negocio.
+                </p>
+            </div>
+
+            <!-- Carrusel Wrapper -->
+            <div class="relative max-w-6xl mx-auto">
+                <div id="carousel-track" class="flex transition-transform duration-500 ease-out gap-6 items-stretch">
+                    
+                    <!-- Card 1: Funnel -->
+                    <div class="carousel-slide flex-shrink-0 w-[92%] sm:w-[88%] md:w-[85%] lg:w-[82%] bg-[#F4EADC] rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="order-1 md:col-start-1 md:row-start-1 text-center md:text-left">
+                            <h3 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 font-spartan">
+                                Funnel de ventas y actividades
+                            </h3>
+                        </div>
+                        <div class="order-2 md:col-start-2 md:row-start-1 md:row-span-3 flex justify-center items-center">
+                            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm w-full max-w-md aspect-[4/3] flex items-center justify-center border border-gray-100">
+                                <img src="CRM-funel.png" alt="Funnel de Ventas" class="max-h-48 md:max-h-56 w-auto object-contain" onerror="this.src='https://placehold.co/500x350/FFF/333?text=Funnel+de+Ventas'">
+                            </div>
+                        </div>
+                        <div class="order-3 md:col-start-1 md:row-start-2 text-left">
+                            <p class="text-sm sm:text-base text-gray-800 font-medium mb-3 font-montserrat leading-relaxed">
+                                Estatus y actividades 100% configurables para el progreso a través de cada etapa del proceso de ventas y generación de oportunidades.
+                            </p>
+                            <p class="text-sm sm:text-base text-gray-800 font-medium font-montserrat leading-relaxed">
+                                Actividades personalizadas con formularios, evidencias y asignación de tareas.
+                            </p>
+                        </div>
+                        <div class="order-4 md:col-start-1 md:row-start-3 mt-2 md:mt-4 flex justify-center md:justify-start">
+                            <button onclick="openModal()" class="btn-zenit w-full md:w-auto min-w-[180px]">
+                                Contactar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Marketing -->
+                    <div class="carousel-slide flex-shrink-0 w-[92%] sm:w-[88%] md:w-[85%] lg:w-[82%] bg-[#F4EADC] rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="order-1 md:col-start-1 md:row-start-1 text-center md:text-left">
+                            <h3 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 font-spartan">
+                                Marketing inteligente
+                            </h3>
+                        </div>
+                        <div class="order-2 md:col-start-2 md:row-start-1 md:row-span-3 flex justify-center items-center">
+                            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm w-full max-w-md aspect-[4/3] flex items-center justify-center border border-gray-100">
+                                <img src="CRM-marketing.png" alt="Marketing Inteligente" class="max-h-48 md:max-h-56 w-auto object-contain" onerror="this.src='https://placehold.co/500x350/FFF/333?text=Marketing+Inteligente'">
+                            </div>
+                        </div>
+                        <div class="order-3 md:col-start-1 md:row-start-2 text-left">
+                            <p class="text-sm sm:text-base text-gray-800 font-medium mb-3 font-montserrat leading-relaxed">
+                                Integra Brevo para <strong>marketing relacional</strong>, sincroniza bases de datos de prospectos y clientes, y <strong>conecta formularios web</strong> para la generación automática de nuevos contactos en el CRM.
+                            </p>
+                            <p class="text-sm sm:text-base text-gray-800 font-medium font-montserrat leading-relaxed">
+                                Además, automatiza la comunicación permitiendo el envío de <strong>notificaciones, reportes, recordatorios y cobranza</strong> de forma eficiente.
+                            </p>
+                        </div>
+                        <div class="order-4 md:col-start-1 md:row-start-3 mt-2 md:mt-4 flex justify-center md:justify-start">
+                            <button onclick="openModal()" class="btn-zenit w-full md:w-auto min-w-[180px]">
+                                Contactar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Comunicación -->
+                    <div class="carousel-slide flex-shrink-0 w-[92%] sm:w-[88%] md:w-[85%] lg:w-[82%] bg-[#F4EADC] rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="order-1 md:col-start-1 md:row-start-1 text-center md:text-left">
+                            <h3 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 font-spartan">
+                                Comunicación potenciada
+                            </h3>
+                        </div>
+                        <div class="order-2 md:col-start-2 md:row-start-1 md:row-span-3 flex justify-center items-center">
+                            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm w-full max-w-md aspect-[4/3] flex items-center justify-center border border-gray-100">
+                                <img src="CRM-comunicacion.png" alt="Comunicación Potenciada" class="max-h-48 md:max-h-56 w-auto object-contain" onerror="this.src='https://placehold.co/500x350/FFF/333?text=Comunicacion+Potenciada'">
+                            </div>
+                        </div>
+                        <div class="order-3 md:col-start-1 md:row-start-2 text-left">
+                            <p class="text-sm sm:text-base text-gray-800 font-medium mb-3 font-montserrat leading-relaxed">
+                                Monitorea de forma centralizada toda la <strong>comunicación entre vendedores y clientes</strong>.
+                            </p>
+                            <p class="text-sm sm:text-base text-gray-800 font-medium font-montserrat leading-relaxed">
+                                <strong>Gmail y WhatsApp</strong> dentro del CRM, integra tickets y permite enviar y recibir correos en un solo lugar, con indicadores de atención y plantillas para respuestas rápidas.
+                            </p>
+                        </div>
+                        <div class="order-4 md:col-start-1 md:row-start-3 mt-2 md:mt-4 flex justify-center md:justify-start">
+                            <button onclick="openModal()" class="btn-zenit w-full md:w-auto min-w-[180px]">
+                                Contactar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Otros módulos -->
+                    <div class="carousel-slide flex-shrink-0 w-[92%] sm:w-[88%] md:w-[85%] lg:w-[82%] bg-[#F4EADC] rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="order-1 md:col-start-1 md:row-start-1 text-center md:text-left">
+                            <h3 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 font-spartan">
+                                Otros módulos
+                            </h3>
+                        </div>
+                        <div class="order-2 md:col-start-2 md:row-start-1 md:row-span-3 flex justify-center items-center">
+                            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm w-full max-w-md aspect-[4/3] flex items-center justify-center border border-gray-100">
+                                <img src="CRM-otros-modulos.png" alt="Otros Módulos" class="max-h-48 md:max-h-56 w-auto object-contain" onerror="this.src='https://placehold.co/500x350/FFF/333?text=Otros+Modulos'">
+                            </div>
+                        </div>
+                        <div class="order-3 md:col-start-1 md:row-start-2 text-left">
+                            <ul class="space-y-3 font-montserrat text-gray-800 font-medium text-sm sm:text-base">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-[#C61A22] flex-shrink-0"></span>
+                                    <span>Kardex del cliente.</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-[#C61A22] flex-shrink-0"></span>
+                                    <span>Administración de usuarios y catálogos.</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-[#C61A22] flex-shrink-0"></span>
+                                    <span>Tickets, actividades y agenda.</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-[#C61A22] flex-shrink-0"></span>
+                                    <span>Administrador de contenidos y base de conocimientos.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="order-4 md:col-start-1 md:row-start-3 mt-2 md:mt-4 flex justify-center md:justify-start">
+                            <button onclick="openModal()" class="btn-zenit w-full md:w-auto min-w-[180px]">
+                                Contactar
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Indicadores Desktop -->
+                <div id="carousel-dots" class="hidden md:flex justify-start items-center gap-2.5 mt-8 pl-2"></div>
+
+                <!-- Flechas Móvil -->
+                <div class="flex md:hidden justify-center items-center gap-5 mt-8">
+                    <button id="prev-slide-btn" aria-label="Slide anterior" class="w-14 h-14 rounded-full bg-[#EFE5D8] hover:bg-[#E5D7C7] active:scale-95 flex items-center justify-center text-[#F58232] text-xl transition-all shadow-sm">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button id="next-slide-btn" aria-label="Slide siguiente" class="w-14 h-14 rounded-full bg-[#EFE5D8] hover:bg-[#E5D7C7] active:scale-95 flex items-center justify-center text-[#F58232] text-xl transition-all shadow-sm">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Feature Section 3: Dashboards -->
+    <section id="dashboards" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="bg-gray-700 rounded-3xl p-8 md:p-12 shadow-xl">
+                
+                <div class="mb-12">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4 text-white leading-tight font-spartan">
+                        Toma decisiones con información en <br class="hidden md:block"> tiempo real
+                    </h2>
+                    <p class="text-lg text-gray-200 font-montserrat">
+                        Visualiza todo con dashboards inteligentes dentro del CRM:
+                    </p>
+                </div>
+
+                <!-- Grid de 6 columnas unificado -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+                    
+                    <!-- Item 1 -->
+                    <div class="lg:col-span-2 flex flex-col items-center">
+                        <div class="bg-white rounded-2xl p-4 w-full h-48 mb-4 shadow-sm flex items-center justify-center">
+                            <img src="CRM-estadisticas.png" alt="Estadísticas de ventas" class="max-h-full object-contain" onerror="this.src='https://placehold.co/400x300/F5EBE1/333?text=Estadisticas'">
+                        </div>
+                        <h3 class="text-white font-medium text-center mb-4 h-12 flex items-center font-spartan text-lg">Estadísticas de ventas y oportunidades</h3>
+                        <button onclick="openModal()" class="btn-zenit w-full max-w-[240px]">
+                            Contactar
+                        </button>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="lg:col-span-2 flex flex-col items-center">
+                        <div class="bg-white rounded-2xl p-4 w-full h-48 mb-4 shadow-sm flex items-center justify-center">
+                            <img src="CRM-embudos.png" alt="Embudo de ventas detallado" class="max-h-full object-contain" onerror="this.src='https://placehold.co/400x300/F5EBE1/333?text=Embudos'">
+                        </div>
+                        <h3 class="text-white font-medium text-center mb-4 h-12 flex items-center font-spartan text-lg">Embudo de ventas detallado</h3>
+                        <button onclick="openModal()" class="btn-zenit w-full max-w-[240px]">
+                            Contactar
+                        </button>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="lg:col-span-2 flex flex-col items-center">
+                        <div class="bg-white rounded-2xl p-4 w-full h-48 mb-4 shadow-sm flex items-center justify-center">
+                            <img src="CRM-actividades.png" alt="Actividades de valor" class="max-h-full object-contain" onerror="this.src='https://placehold.co/400x300/F5EBE1/333?text=Actividades'">
+                        </div>
+                        <h3 class="text-white font-medium text-center mb-4 h-12 flex items-center font-spartan text-lg">Actividades de valor en venta y postventa</h3>
+                        <button onclick="openModal()" class="btn-zenit w-full max-w-[240px]">
+                            Contactar
+                        </button>
+                    </div>
+
+                    <!-- Item 4 (Centrado: col 2 de 6) -->
+                    <div class="lg:col-span-2 lg:col-start-2 flex flex-col items-center">
+                        <div class="bg-white rounded-2xl p-4 w-full h-48 mb-4 shadow-sm flex items-center justify-center">
+                            <img src="CRM-cuentas-cobrar.png" alt="Control de cuentas por cobrar" class="max-h-full object-contain" onerror="this.src='https://placehold.co/400x300/F5EBE1/333?text=Cuentas+Cobrar'">
+                        </div>
+                        <h3 class="text-white font-medium text-center mb-4 h-12 flex items-center font-spartan text-lg">Control de cuentas por cobrar</h3>
+                        <button onclick="openModal()" class="btn-zenit w-full max-w-[240px]">
+                            Contactar
+                        </button>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="lg:col-span-2 flex flex-col items-center">
+                        <div class="bg-white rounded-2xl p-4 w-full h-48 mb-4 shadow-sm flex items-center justify-center">
+                            <img src="CRM-analisis-vendedor.png" alt="Análisis por vendedor" class="max-h-full object-contain" onerror="this.src='https://placehold.co/400x300/F5EBE1/333?text=Analisis'">
+                        </div>
+                        <h3 class="text-white font-medium text-center mb-4 h-12 flex items-center font-spartan text-lg">Análisis por vendedor, origen y geografía</h3>
+                        <button onclick="openModal()" class="btn-zenit w-full max-w-[240px]">
+                            Contactar
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- WMS Section -->
+    <section id="wms" class="py-20 bg-[#F4EADC]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+            
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-center font-spartan">
+                <span class="text-[#C62828]">WMS</span> <span class="text-gray-900">Zenit</span>
+            </h2>
+
+            <p class="text-center text-gray-900 text-sm md:text-base mb-4 max-w-3xl font-montserrat">
+                Complementa todas las <strong>actividades administrativas</strong> necesarias para llevar la operación de tu empresa.
+            </p>
+            <p class="text-center text-gray-900 text-sm md:text-base mb-12 max-w-4xl leading-relaxed font-montserrat">
+                <strong>Cotizaciones, pedidos y facturación</strong> (CFDIs), control de precios y descuentos, inventarios multi ubicación, administración de sucursales y equipos, y pagos en línea.
+            </p>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 mb-8 w-full max-w-4xl">
+                <div class="w-32 md:w-40 flex-shrink-0 flex justify-center">
+                    <img src="CRM-suricata-2.png" alt="Mascota Zenit" class="w-full h-auto object-contain">
+                </div>
+                
+                <div class="bg-[#595959] rounded-xl w-full aspect-[4/3] max-w-[500px] shadow-md"></div>
+            </div>
+
+            <button onclick="openModal()" class="btn-zenit min-w-[220px]">
+                Obtener información
+            </button>
+            
+        </div>
+    </section>
+
+
+    <!-- Pricing Section -->
+<section id="precios" class="py-24 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header: Contenedor ampliado (max-w-5xl) para mantener el título en una sola línea -->
+        <div class="text-center max-w-5xl mx-auto mb-16">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 font-spartan">
+                Encuentra el <span class="text-[#C62828]">plan de CRM</span> ideal para ti
+            </h2>
+            <p class="text-sm md:text-base text-gray-800 font-medium font-montserrat max-w-3xl mx-auto leading-relaxed">
+                Nuestro CRM está especializado y diseñado a la medida para empresas con altos volúmenes de operación, ofreciendo procesos formales de administración y atención al cliente.
+            </p>
+        </div>
+
+        <!-- Grid de 3 columnas -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto items-stretch">
+            
+            <!-- Tarjeta 1: Prueba Gratuita -->
+            <div class="bg-[#595959] rounded-2xl p-8 flex flex-col items-center text-center text-white shadow-lg">
+                <h3 class="text-2xl font-bold mb-4 font-spartan">¡Prueba gratuita!</h3>
+                <p class="mb-6 text-sm px-2 font-montserrat">
+                    Primeros <strong>6 meses gratis</strong> en cualquier plan de <strong>CRM.</strong>
+                </p>
+                
+                <div class="flex-grow flex items-center justify-center mb-6">
+                    <img src="CRM-suricata-3.png" alt="Suricata Prueba Gratuita" class="h-52 object-contain" onerror="this.src='https://placehold.co/300x300/595959/FFF?text=Suricata'">
+                </div>
+                
+                <p class="text-xs text-gray-300 mb-6 font-montserrat">* Aplican restricciones</p>
+                <button onclick="openModal()" class="btn-zenit w-full mt-auto">
+                    Prueba gratuita
+                </button>
+            </div>
+
+            <!-- Tarjeta 2: Pyme -->
+            <div class="bg-[#F3EBE0] rounded-2xl p-8 flex flex-col text-gray-900 shadow-sm border border-gray-100">
+                <h3 class="text-2xl font-bold text-center mb-6 font-spartan">Pyme</h3>
+                
+                <ul class="space-y-4 mb-8 flex-grow text-sm font-medium font-montserrat">
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>20 usuarios mensuales.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>Acceso a todas las integraciones, funcionalidades y dashboards.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>Implementación personalizada.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>Soporte técnico 8x5.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>CRM mensual: $10,000 MXN.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>Bundle CRM + WMS: $16,000 MXN.</span>
+                    </li>
+                </ul>
+
+                <button onclick="openModal()" class="btn-zenit w-full mt-auto">
+                    Iniciar ahora
+                </button>
+            </div>
+
+            <!-- Tarjeta 3: Enterprise -->
+            <div class="bg-[#F3EBE0] rounded-2xl p-8 flex flex-col text-gray-900 shadow-sm border border-gray-100">
+                <h3 class="text-2xl font-bold text-center mb-6 font-spartan">Enterprise</h3>
+                
+                <ul class="space-y-4 mb-8 flex-grow text-sm font-medium font-montserrat">
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>20 a 40 usuarios mensuales.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>Acceso a todas las integraciones, funcionalidades y dashboards.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>Implementación personalizada.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>Soporte técnico 8x5.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>CRM mensual: $15,000 MXN.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <img src="CRM-check.svg" alt="Check" class="w-4 h-4 mt-1 flex-shrink-0">
+                        <span>Bundle CRM + WMS: $24,000 MXN.</span>
+                    </li>
+                </ul>
+
+                <button onclick="openModal()" class="btn-zenit w-full mt-auto">
+                    Iniciar ahora
+                </button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- Footer Section -->
+    <footer id="contacto" class="bg-[#F3EBE0] pt-16 pb-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-montserrat">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-end mb-4 relative z-10">
+                
+                <div class="flex flex-col items-center text-center">
+                    <img src="CRM-z-crm.svg" alt="Zenit CRM" class="h-10 md:h-12 mb-4 object-contain">
+                    
+                    <p class="text-gray-900 font-medium mb-8 text-sm md:text-base">
+                        Conecta, automatiza y potencia cada etapa comercial.
+                    </p>
+                    
+                    <p class="text-gray-900 font-medium text-sm md:text-base mb-4">Entra en contacto:</p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+                        <a href="tel:5563887541" class="btn-zenit min-w-[160px] py-2.5">
+                            55 6388 7541
+                        </a>
+                        <a href="mailto:hola@zenit.mx" class="btn-zenit min-w-[160px] py-2.5">
+                            hola@zenit.mx
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center md:items-start md:pl-16 lg:pl-24 mb-12 md:mb-8">
+                    <p class="text-gray-900 font-bold text-lg mb-4 font-spartan">CRM para ventas</p>
+                    <ul class="space-y-1 text-center md:text-left text-gray-900 font-medium text-base">
+                        <li><a href="#inicio" class="hover:text-[#C62828] transition-colors">Inicio</a></li>
+                        <li><a href="#integraciones" class="hover:text-[#C62828] transition-colors">Integraciones</a></li>
+                        <li><a href="#dashboards" class="hover:text-[#C62828] transition-colors">Dashboards</a></li>
+                        <li><a href="#crm" class="hover:text-[#C62828] transition-colors">CRM Zenit</a></li>
+                        <li><a href="#precios" class="hover:text-[#C62828] transition-colors">Precios</a></li>
+                        <li><a href="#contacto" class="hover:text-[#C62828] transition-colors">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="flex justify-center md:justify-end relative -mb-6 md:-mb-10">
+                    <img src="CRM-suricata-4.png" alt="Mascota Astronauta Zenit" class="h-64 md:h-80 object-contain relative z-20">
+                </div>
+                
+            </div>
+
+            <div class="border-t border-[#A62B2B] pt-4 relative z-10 flex justify-center">
+                <div class="flex flex-wrap justify-center items-center gap-1 text-[11px] md:text-xs text-gray-900 font-semibold text-center">
+                    <a href="#" class="hover:text-[#C62828] transition-colors">Términos y condiciones</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-[#C62828] transition-colors">Aviso de privacidad</a>
+                    <span>|</span>
+                    <span>zenit.mx Todos los derechos reservados</span>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/525563887541?text=Hola,%20me%20interesa%20informaci%C3%B3n%20sobre%20Zenit%20CRM" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 bg-green-500 text-white rounded-full p-3 shadow-2xl hover:scale-110 hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] transition-all duration-300 group flex items-center justify-center h-16 w-16">
+        <img src="CRM-whats.png" alt="WhatsApp" class="w-10 h-10 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <i class="fa-brands fa-whatsapp text-4xl hidden group-hover:animate-pulse"></i>
+        <span class="absolute right-full mr-4 bg-white text-zenit-dark text-sm font-bold px-3 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-montserrat">
+            ¡Escríbenos!
+        </span>
+    </a>
+
+    <!-- Contact Modal Form -->
+    <div id="contact-modal" class="fixed inset-0 z-[100] modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden modal-content flex flex-col max-h-[90vh]">
+            
+            <div class="bg-gradient-to-r from-zenit-bg to-white px-6 py-4 flex justify-between items-center border-b border-gray-100 relative">
+                <h3 class="text-2xl font-bold text-zenit-dark font-spartan">Empieza a <span class="text-zenit-red">crecer</span></h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-zenit-red focus:outline-none transition-colors p-2 rounded-full hover:bg-red-50">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto custom-scrollbar font-montserrat">
+                <p class="text-gray-600 mb-6 text-sm">Déjanos tus datos y un especialista se pondrá en contacto contigo para mostrarte el poder de Zenit CRM.</p>
+                
+                <form id="lead-form" class="space-y-4" onsubmit="submitForm(event)">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo *</label>
+                            <input type="text" id="nombre" name="nombre" required class="form-input" placeholder="Ej. Juan Pérez">
+                        </div>
+                        <div>
+                            <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">Teléfono *</label>
+                            <input type="tel" id="telefono" name="telefono" required class="form-input" placeholder="Ej. 55 1234 5678">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="correo" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico *</label>
+                        <input type="email" id="correo" name="correo" required class="form-input" placeholder="correo@empresa.com">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="empresa" class="block text-sm font-medium text-gray-700 mb-1">Empresa</label>
+                            <input type="text" id="empresa" name="empresa" class="form-input" placeholder="Nombre de tu empresa">
+                        </div>
+                        <div>
+                            <label for="estado" class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+                            <select id="estado" name="estado" class="form-input text-gray-700 bg-white">
+                                <option value="" disabled selected>Selecciona tu estado</option>
+                                <option value="CDMX">Ciudad de México</option>
+                                <option value="Edomex">Estado de México</option>
+                                <option value="Jalisco">Jalisco</option>
+                                <option value="NuevoLeon">Nuevo León</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-1">Mensaje o duda principal</label>
+                        <textarea id="mensaje" name="mensaje" rows="3" class="form-input resize-none" placeholder="¿Cómo podemos ayudarte?"></textarea>
+                    </div>
+
+                    <div id="form-success" class="hidden bg-green-50 text-green-700 p-3 rounded-lg text-sm font-medium text-center border border-green-200">
+                        ¡Gracias! Hemos recibido tus datos correctamente.
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" id="submit-btn" class="btn-zenit w-full text-base">
+                            <span>Enviar información</span>
+                        </button>
+                    </div>
+                    
+                    <p class="text-xs text-center text-gray-400 mt-4">
+                        Al enviar este formulario aceptas nuestro Aviso de Privacidad.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const modal = document.getElementById('contact-modal');
+        const body = document.body;
+
+        function openModal() {
+            modal.classList.add('active');
+            body.style.overflow = 'hidden';
+            document.getElementById('lead-form').reset();
+            document.getElementById('form-success').classList.add('hidden');
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = false;
+            btn.innerHTML = '<span>Enviar información</span>';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            body.style.overflow = '';
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        function submitForm(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+
+            setTimeout(() => {
+                document.getElementById('form-success').classList.remove('hidden');
+                btn.classList.add('hidden');
+                
+                setTimeout(() => {
+                    closeModal();
+                    btn.classList.remove('hidden', 'opacity-75', 'cursor-not-allowed');
+                }, 3000);
+            }, 1500);
+        }
+
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a, button');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('bg-zenit-bg/90', 'bg-white/95');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.replace('bg-white/95', 'bg-zenit-bg/90');
+            }
+        });
+    </script>
+    <script>
+        // --- Lógica del Carrusel de Integraciones ---
+        const track = document.getElementById('carousel-track');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dotsContainer = document.getElementById('carousel-dots');
+        const prevBtn = document.getElementById('prev-slide-btn');
+        const nextBtn = document.getElementById('next-slide-btn');
+        let currentIndex = 0;
+
+        slides.forEach((_, idx) => {
+            const dot = document.createElement('button');
+            dot.className = `h-3 rounded-full transition-all duration-300 ${idx === 0 ? 'w-8 bg-[#C61A22]' : 'w-3 bg-[#E5D7C7]'}`;
+            dot.setAttribute('aria-label', `Slide ${idx + 1}`);
+            dot.addEventListener('click', () => moveToSlide(idx));
+            dotsContainer.appendChild(dot);
+        });
+
+        function moveToSlide(index) {
+            if (index < 0) {
+                index = slides.length - 1;
+            } else if (index >= slides.length) {
+                index = 0;
+            }
+            currentIndex = index;
+
+            const slide = slides[0];
+            const slideWidth = slide.getBoundingClientRect().width;
+            const gap = 24;
+            const offset = currentIndex * (slideWidth + gap);
+            
+            track.style.transform = `translateX(-${offset}px)`;
+
+            const dots = dotsContainer.querySelectorAll('button');
+            dots.forEach((dot, idx) => {
+                if (idx === currentIndex) {
+                    dot.className = 'h-3 w-8 rounded-full bg-[#C61A22] transition-all duration-300';
+                } else {
+                    dot.className = 'h-3 w-3 rounded-full bg-[#E5D7C7] hover:bg-gray-400 transition-all duration-300';
+                }
+            });
+        }
+
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => moveToSlide(currentIndex - 1));
+            nextBtn.addEventListener('click', () => moveToSlide(currentIndex + 1));
+        }
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        track.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        track.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                moveToSlide(currentIndex + 1);
+            }
+            if (touchEndX - touchStartX > 50) {
+                moveToSlide(currentIndex - 1);
+            }
+        }, { passive: true });
+
+        window.addEventListener('resize', () => moveToSlide(currentIndex));
+    </script>
+</body>
+</html>
