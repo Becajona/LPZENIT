@@ -229,6 +229,7 @@
     </div>
 </section>
 <!-- Feature Section 1 -->
+<!-- Feature Section 1 -->
 <section id="crm" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -273,19 +274,24 @@
                 </button>
             </div>
 
-            <!-- Right Side: Video Placeholder -->
+            <!-- Right Side: Video Embed -->
             <div class="w-full lg:w-1/2">
-                <div class="w-full aspect-video bg-[#595959] rounded-xl flex items-center justify-center shadow-lg cursor-pointer hover:bg-[#4d4d4d] transition-colors relative">
-                    <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center shadow-md">
-                        <div class="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-[#C62828] border-b-[12px] border-b-transparent ml-2"></div>
-                    </div>
+                <div class="w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-100 bg-black">
+                    <iframe 
+                        class="w-full h-full"
+                        src="https://www.youtube.com/embed/BDW6-yM3tsk?rel=0" 
+                        title="CRM para Empresas: Gestiona Ventas, Clientes y WhatsApp | Zenit" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
                 </div>
             </div>
 
         </div>
     </div>
 </section>
-
     <!-- Feature Section 2: Carrusel Todo en una sola plataforma -->
     <section id="integraciones" class="py-20 bg-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -532,36 +538,53 @@
         </div>
     </section>
 
-    <!-- WMS Section -->
-    <section id="wms" class="py-20 bg-[#F4EADC]">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+<!-- WMS Section -->
+<section id="wms" class="py-20 bg-[#F4EADC]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        
+        <!-- Título -->
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-center font-spartan">
+            <span class="text-[#C62828]">WMS</span> <span class="text-gray-900">Zenit</span>
+        </h2>
+
+        <!-- Textos -->
+        <p class="text-center text-gray-900 text-sm md:text-base mb-4 max-w-3xl font-montserrat">
+            Complementa todas las <strong>actividades administrativas</strong> necesarias para llevar la operación de tu empresa.
+        </p>
+        <p class="text-center text-gray-900 text-sm md:text-base mb-12 max-w-4xl leading-relaxed font-montserrat">
+            <strong>Cotizaciones, pedidos y facturación</strong> (CFDIs), control de precios y descuentos, inventarios multi ubicación, administración de sucursales y equipos, y pagos en línea.
+        </p>
+
+        <!-- Área de contenido (Mascota y Video) -->
+        <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 mb-8 w-full max-w-4xl">
             
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-center font-spartan">
-                <span class="text-[#C62828]">WMS</span> <span class="text-gray-900">Zenit</span>
-            </h2>
-
-            <p class="text-center text-gray-900 text-sm md:text-base mb-4 max-w-3xl font-montserrat">
-                Complementa todas las <strong>actividades administrativas</strong> necesarias para llevar la operación de tu empresa.
-            </p>
-            <p class="text-center text-gray-900 text-sm md:text-base mb-12 max-w-4xl leading-relaxed font-montserrat">
-                <strong>Cotizaciones, pedidos y facturación</strong> (CFDIs), control de precios y descuentos, inventarios multi ubicación, administración de sucursales y equipos, y pagos en línea.
-            </p>
-
-            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 mb-8 w-full max-w-4xl">
-                <div class="w-32 md:w-40 flex-shrink-0 flex justify-center">
-                    <img src="CRM-suricata-2.png" alt="Mascota Zenit" class="w-full h-auto object-contain">
-                </div>
-                
-                <div class="bg-[#595959] rounded-xl w-full aspect-[4/3] max-w-[500px] shadow-md"></div>
+            <!-- Mascota -->
+            <div class="w-32 md:w-40 flex-shrink-0 flex justify-center">
+                <img src="CRM-suricata-2.png" alt="Mascota Zenit" class="w-full h-auto object-contain">
             </div>
-
-            <button onclick="openModal()" class="btn-zenit min-w-[220px]">
-                Obtener información
-            </button>
+            
+            <!-- Video Embed WMS -->
+            <div class="w-full max-w-[540px] aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-200/80 bg-black">
+                <iframe 
+                    class="w-full h-full"
+                    src="https://www.youtube.com/embed/iL2aIoTQTN4?rel=0" 
+                    title="WMS Zenit: Gestión de Almacenes, Inventarios y Pedidos en un Solo Sistema" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
             
         </div>
-    </section>
 
+        <!-- Botón -->
+        <button onclick="openModal()" class="btn-zenit min-w-[220px]">
+            Obtener información
+        </button>
+        
+    </div>
+</section>
 
     <!-- Pricing Section -->
 <section id="precios" class="py-24 bg-white relative">
